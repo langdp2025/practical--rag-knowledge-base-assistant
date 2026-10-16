@@ -4,8 +4,9 @@ import sqlite3
 from pathlib import Path
 from datetime import datetime, timezone
 from uuid import uuid4
+from typing import Optional
 
-def provider_record_request_audit(method: str, route: str, status: int, duration_ms: float, database_path: str | None = None) -> str:
+def provider_record_request_audit(method: str, route: str, status: int, duration_ms: float, database_path: Optional[str] = None) -> str:
     """Store request and linked outcome; never store query bodies or credentials."""
     path = database_path or os.getenv("INKPLAIN_AUDIT_DB", "data/knowledge_audit.sqlite3")
     Path(path).parent.mkdir(parents=True, exist_ok=True)
